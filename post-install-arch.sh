@@ -70,7 +70,8 @@ sudo pacman -S --needed --noconfirm \
     git \
     fastfetch \
     kitty \
-    ghostty
+    ghostty \
+    networkmanager
 
 # Install additional AUR packages
 print_section "Installing Additional AUR Packages"

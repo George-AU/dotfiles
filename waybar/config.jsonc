@@ -7,12 +7,14 @@
     "pulseaudio",
     "backlight",
     "battery",
-    "network",
+    "custom/power",
+    "custom/network",
     "cpu",
     "memory",
     "tray",
-    "custom/lock",
+    "custom/lock"
   ],
+  "spacing": 4,
   "hyprland/workspaces": {
     "format": "{name}: {icon}",
     "format-icons": {
@@ -36,23 +38,28 @@
   "clock": {
     "timezone": "Australia/Perth",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format": "{:%d/%m/%Y - %H:%M}"
+    "format": "{:%d/%m/%Y - %I:%M:%S %p}",
+    "interval": 1
   },
-  "network": {
-    "format-wifi": "󰤢 ",
-    "format-ethernet": "󰈀 ",
-    "format-disconnected": "󰤠 ",
+  "custom/network": {
+    "format": "󰖟 {}",
     "interval": 5,
-    "tooltip": false
+    "exec": "$HOME/.config/waybar/scripts/network_info.sh",
+    "tooltip": true
   },
   "cpu": {
     "interval": 1,
-    "format": "  {icon0}{icon1}{icon2}{icon3} {usage:>2}%",
-    "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+    "format": "󰻠 {usage}%",
+    "tooltip": true,
+    "tooltip-format": "CPU Usage: {usage}%\nLoad: {load}",
+    "on-click": "kitty -e htop"
   },
   "memory": {
-    "interval": 30,
-    "format": "  {used:0.1f}G/{total:0.1f}G"
+    "interval": 5,
+    "format": "󰍛 {percentage}%",
+    "tooltip": true,
+    "tooltip-format": "RAM: {used:0.1f}GB/{total:0.1f}GB\nSwap: {swapUsed:0.1f}GB/{swapTotal:0.1f}GB",
+    "on-click": "kitty -e htop"
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
@@ -61,6 +68,26 @@
       "default": ["", "", " "]
     },
     "on-click": "pavucontrol"
+  },
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰚥 {capacity}%",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "tooltip": true,
+    "tooltip-format": "Battery: {capacity}%\nTime remaining: {time}",
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "interval": 10
+  },
+  "custom/power": {
+    "format": "󱐋 {} W",
+    "interval": 1,
+    "exec": "$HOME/.config/waybar/scripts/battery_power.sh",
+    "tooltip": true,
+    "tooltip-format": "Power consumption"
   },
   "custom/lock": {
     "tooltip": false,
