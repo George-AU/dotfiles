@@ -71,7 +71,8 @@ sudo pacman -S --needed --noconfirm \
     fastfetch \
     kitty \
     ghostty \
-    networkmanager
+    networkmanager \
+    pavucontrol
 
 # Install additional AUR packages
 print_section "Installing Additional AUR Packages"
