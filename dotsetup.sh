@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration: List of folders to sync from ~/.config to ~/dotfiles
-CONFIG_FOLDERS=("hypr" "waybar")
+CONFIG_FOLDERS=("hypr" "waybar" "kitty")
 
 # Paths
 CONFIG_DIR="$HOME/.config"
