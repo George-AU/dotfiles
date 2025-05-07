@@ -77,5 +77,17 @@ pacman -S --needed --noconfirm \
     fastfetch \
     kitty
 
+# Install additional AUR packages
+print_section "Installing Additional AUR Packages"
+echo "Installing AUR packages..."
+yay -S --needed --noconfirm \
+    brave-bin \
+    nerd-fonts-fira-code \
+    nordic-darker-standard-buttons-theme \
+    nordic-darker-theme \
+    nordic-kde-git \
+    nordic-theme \
+    plymouth-git \
+    ttf-meslo
+
 print_section "Installation Complete!"
-echo "You can now configure Hyprland and other tools."
