@@ -5,7 +5,7 @@ set -e
 
 # Helper functions
 check_package() {
-    pacman -Qi "$1" &> /dev/null
+    sudo pacman -Qi "$1" &> /dev/null
     return $?
 }
 
@@ -20,23 +20,17 @@ print_section() {
     echo "====================================="
 }
 
-# Check root privileges
-if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root (use sudo)" >&2
-   exit 1
-fi
-
 # System preparation
 print_section "System Preparation"
 echo "Unblocking wireless devices..."
-rfkill unblock 1
-rfkill unblock 3
+sudo rfkill unblock 1
+sudo rfkill unblock 3
 
 # System update
 print_section "System Update"
 echo "Updating system and installing base packages..."
-pacman -Syu --noconfirm
-pacman -S --needed --noconfirm base-devel git nano
+sudo pacman -Syu --noconfirm
+sudo pacman -S --needed --noconfirm base-devel git nano
 
 # Install AUR helper if not present
 print_section "AUR Helper Setup"
@@ -62,7 +56,7 @@ else
 fi
 
 echo "Installing Hyprland dependencies..."
-pacman -S --needed --noconfirm \
+sudo pacman -S --needed --noconfirm \
     polkit-gnome \
     xdg-desktop-portal-hyprland \
     qt5-wayland \
