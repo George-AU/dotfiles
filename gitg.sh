@@ -12,7 +12,7 @@ fi
 # Check if a commit message is provided
 if [ -z "$1" ]; then
     echo "Error: Please provide a commit message" >&2
-    echo "Usage: $0 <commit-message> [--pull] [--push]" >&2
+    echo "Usage: $0 <commit-message> [--pull] [--no-push] [--no-add]" >&2
     exit 1
 fi
 
@@ -49,10 +49,15 @@ if [ -z "$(git status --porcelain)" ]; then
     exit 0
 fi
 
-# Add all changes, including this script
-echo "Adding all changes, including this script..."
-git add "$0"  # Explicitly stage this script
-git add .
+# Add changes based on flags
+echo "Adding changes..."
+git add "$0"  # Always stage this script
+
+# Add all files unless --no-add flag is provided
+if [[ "$*" != *"--no-add"* ]]; then
+    echo "Adding all changes..."
+    git add .
+fi
 
 # Commit with the provided message
 echo "Committing with message: $1"
@@ -62,8 +67,8 @@ else
     echo "Commit created successfully."
 fi
 
-# Push if --push flag is provided
-if [ "$2" = "--push" ] || [ "$3" = "--push" ]; then
+# Push by default unless --no-push flag is provided
+if [[ "$*" != *"--no-push"* ]]; then
     echo "Pushing to remote..."
     # Check if upstream is set
     if ! git rev-parse --abbrev-ref --symbolic-full-name @{u} >/dev/null 2>&1; then
