@@ -43,21 +43,41 @@ if [ "$STASHED" = true ]; then
     git stash pop
 fi
 
-# Add all changes
-echo "Adding all changes..."
+# Check if there are changes to commit
+if [ -z "$(git status --porcelain)" ]; then
+    echo "No changes to commit. Working tree is clean."
+    exit 0
+fi
+
+# Add all changes, including this script
+echo "Adding all changes, including this script..."
+git add "$0"  # Explicitly stage this script
 git add .
 
 # Commit with the provided message
 echo "Committing with message: $1"
-git commit -m "$1"
+if ! git commit -m "$1" >/dev/null 2>&1; then
+    echo "No changes to commit. Working tree is clean."
+else
+    echo "Commit created successfully."
+fi
 
 # Push if --push flag is provided
 if [ "$2" = "--push" ] || [ "$3" = "--push" ]; then
     echo "Pushing to remote..."
-    git push || {
-        echo "Error: git push failed. Check remote or pull first." >&2
-        exit 1
-    }
+    # Check if upstream is set
+    if ! git rev-parse --abbrev-ref --symbolic-full-name @{u} >/dev/null 2>&1; then
+        echo "No upstream branch set. Setting upstream to origin/$(git rev-parse --abbrev-ref HEAD)..."
+        git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD) || {
+            echo "Error: Failed to set upstream and push. Check remote configuration." >&2
+            exit 1
+        }
+    else
+        git push || {
+            echo "Error: git push failed. Check remote or pull first." >&2
+            exit 1
+        }
+    fi
 fi
 
 echo "Done!"
