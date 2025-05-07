@@ -69,7 +69,8 @@ sudo pacman -S --needed --noconfirm \
     rofi-wayland \
     git \
     fastfetch \
-    kitty
+    kitty \
+    ghostty
 
 # Install additional AUR packages
 print_section "Installing Additional AUR Packages"
