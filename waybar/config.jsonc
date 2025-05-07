@@ -36,7 +36,7 @@
   "clock": {
     "timezone": "Australia/Perth",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format": "{:%d/%m/%Y - %H:%M:%S}"
+    "format": "{:%d/%m/%Y - %H:%M}"
   },
   "network": {
     "format-wifi": "󰤢 ",
