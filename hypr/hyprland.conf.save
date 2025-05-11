@@ -38,7 +38,7 @@ $terminal = ghostty
 $fileManager = dolphin
 #$menu = rofi -show drun
 $menu = pkill rofi || rofi -show drun -theme ~/.config/rofi/config.rasi
-$swww = sh -c 'sleep 1 && swww img "$(find ~/Pictures/backgrounds -type f | shuf -n 1)"'
+$swww = /usr/bin/swww img "$(find ~/Pictures/backgrounds -type f | shuf -n 1)"
 
 #################
 ### AUTOSTART ###

@@ -72,7 +72,9 @@ sudo pacman -S --needed --noconfirm \
     kitty \
     ghostty \
     networkmanager \
-    pavucontrol
+    pavucontrol \
+    swww \
+    hypridle
 
 # Install additional AUR packages
 print_section "Installing Additional AUR Packages"
