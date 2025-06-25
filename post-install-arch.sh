@@ -74,7 +74,8 @@ sudo pacman -S --needed --noconfirm \
     networkmanager \
     pavucontrol \
     swww \
-    hypridle
+    hypridle \
+    brightnessctl
 
 # Install additional AUR packages
 print_section "Installing Additional AUR Packages"
